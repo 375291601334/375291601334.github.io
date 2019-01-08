@@ -1,5 +1,6 @@
 import showRegistrationWindow from '../registration/registration';
 import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
+import { clearElement } from '../modalWindow/modalWindow';
 
 function createLogo(parent) {
   const logo = document.createElement('div');
@@ -126,6 +127,7 @@ function createContactSection() {
 }
 
 export default function createLandingPage() {
+  clearElement(document.body);
   createHeadSection();
   createScreenshotSection();
   createContactSection();
