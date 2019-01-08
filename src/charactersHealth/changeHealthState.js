@@ -2,6 +2,7 @@ import createRecordsTable from '../createRecordsTable/createRecordsTable';
 import goToTheNextLevel from '../goToTheNextLevel/goToTheNextLevel';
 
 let killedMonsterCounter = 0;
+const FULL_HEALTH = 100;
 
 export function clearKilledMonsterCounter() {
   killedMonsterCounter = 0;
@@ -18,8 +19,8 @@ export default function changeHealthState(who, num) {
   const healthBar = document.getElementsByClassName('health-bar')[index];
 
   let newHealthState = parseInt(percentHealthBar.innerText, 10) + num;
-  if (newHealthState > 100) newHealthState = 100;
-  percentHealthBar.style.width = `${healthBar.clientWidth * newHealthState / 100}px`;
+  if (newHealthState > FULL_HEALTH) newHealthState = FULL_HEALTH;
+  percentHealthBar.style.width = `${healthBar.clientWidth * newHealthState / FULL_HEALTH}px`;
   percentHealthBar.innerText = `${newHealthState}%`;
 
   if (newHealthState <= 0) {
