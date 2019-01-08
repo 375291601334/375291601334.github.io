@@ -23,17 +23,26 @@ function createSpellButton(parent, text, func, className) {
   button.addEventListener('click', func);
 }
 
-function chooseTaskWithKeyboard(focusIndex) {
-  switch (focusIndex) {
-    case 0:
-      return mathExample;
-    case 1:
-      return englishTranslate;
-    case 2:
-      return makeWord;
-    default:
-      return false;
+function chooseTaskWithKeyboard() {
+  if (document.getElementsByClassName('task-type-button')[0].hasFocus()) {
+    return mathExample;
   }
+  if (document.getElementsByClassName('task-type-button')[1].hasFocus()) {
+    return englishTranslate;
+  }
+  if (document.getElementsByClassName('task-type-button')[2].hasFocus()) {
+    return makeWord;
+  }
+  if (document.getElementsByClassName('task-type-button')[3].hasFocus()) {
+    return makeSentence;
+  }
+  if (document.getElementsByClassName('task-type-button')[4].hasFocus()) {
+    return audition;
+  }
+  if (document.getElementsByClassName('task-type-button')[5].hasFocus()) {
+    return wordByPicture;
+  }
+  return false;
 }
 
 function showTasksWindow(event) {
