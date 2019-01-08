@@ -13,7 +13,6 @@ function createCloseButton(parent) {
   const closeButton = document.createElement('span');
   closeButton.classList.add('close');
   parent.appendChild(closeButton);
-
   closeButton.addEventListener('click', closeModalWindow, false);
 }
 
@@ -22,6 +21,5 @@ export function createModalWindow() {
   const modalWindow = document.createElement('div');
   modalWindow.classList.add('modal-window');
   document.body.appendChild(modalWindow);
-
   createCloseButton(modalWindow);
 }
