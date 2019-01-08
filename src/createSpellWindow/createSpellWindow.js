@@ -24,22 +24,22 @@ function createSpellButton(parent, text, func, className) {
 }
 
 function chooseTaskWithKeyboard() {
-  if (document.getElementsByClassName('task-type-button')[0].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[0] === document.activeElement) {
     return mathExample;
   }
-  if (document.getElementsByClassName('task-type-button')[1].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[1] === document.activeElement) {
     return englishTranslate;
   }
-  if (document.getElementsByClassName('task-type-button')[2].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[2] === document.activeElement) {
     return makeWord;
   }
-  if (document.getElementsByClassName('task-type-button')[3].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[3] === document.activeElement) {
     return makeSentence;
   }
-  if (document.getElementsByClassName('task-type-button')[4].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[4] === document.activeElement) {
     return audition;
   }
-  if (document.getElementsByClassName('task-type-button')[5].hasFocus()) {
+  if (document.getElementsByClassName('task-type-button')[5] === document.activeElement) {
     return wordByPicture;
   }
   return false;
