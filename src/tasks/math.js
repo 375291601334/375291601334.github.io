@@ -23,7 +23,6 @@ export default function mathExample() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   example = `${randNum(minNum, maxNum)}${signs[randNum(0, signs.length - 1)]}${randNum(minNum, maxNum)}`;
   str = `Решите пример: ${example}`;
-
   clearElement(modalWindow);
   createTaskText(modalWindow, str);
   createTaskInput(modalWindow);
