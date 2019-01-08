@@ -7,8 +7,8 @@ const prevPressKeyFunc;
 export function pressEnterHandler(func) {
   document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
-	if (event.keyCode === ENTER_KEYCODE) {
-	  func();
+    if (event.keyCode === ENTER_KEYCODE) {
+      func();
     }
   };
 }
@@ -26,4 +26,4 @@ export function pressEnterAndEscHandler(func) {
       }
     }
   };
- }
+}
