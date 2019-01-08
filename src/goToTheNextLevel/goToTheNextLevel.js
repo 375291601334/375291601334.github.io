@@ -1,6 +1,6 @@
 import createCharacters from '../createCharacter/createCharacter';
 import createMonsterName from '../createCharacter/createMonsterName';
-import { createModalWindow } from '../modalWindow/modalWindow';
+import { createModalWindow, closeModalWindow } from '../modalWindow/modalWindow';
 
 function nextLevelTitle(parent, level) {
   const title = document.createElement('h3');
@@ -9,20 +9,15 @@ function nextLevelTitle(parent, level) {
   parent.appendChild(title);
 }
 
-function deleteModalWindow() {
-  document.getElementsByClassName('modal-window')[0].remove();
-  document.getElementsByClassName('modal-window-cover-div')[0].remove();
-}
-
 export default function goToTheNextLevel(level) {
   createModalWindow();
-  document.getElementsByClassName('close')[0].remove();
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   modalWindow.classList.add('new-level-modal-window');
+  document.getElementsByClassName('close')[0].remove();
   nextLevelTitle(modalWindow, level);
   setTimeout(
     () => {
-      deleteModalWindow();
+      closeModalWindow();
       createCharacters();
       const characterName = document.getElementsByClassName('character-name')[1];
       characterName.innerText = createMonsterName();
@@ -33,5 +28,4 @@ export default function goToTheNextLevel(level) {
   const percentHealthBar = document.getElementsByClassName('percent-health-bar')[1];
   percentHealthBar.style.width = `${healthBar.clientWidth}px`;
   percentHealthBar.innerText = '100%';
-
 }
