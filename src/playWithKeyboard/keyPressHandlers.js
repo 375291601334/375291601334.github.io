@@ -8,8 +8,8 @@ const LEFT_KEYCODE = 37;
 const DOWN_KEYCODE = 40;
 let prevPressKeyFunc;
 
-export function pressEnterHandler(func) {
-  document.onkeydown = function pressKeyFunc(evt) {
+export function pressEnterHandler(elem, func) {
+  elem.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     if (event.keyCode === ENTER_KEYCODE) {
       func();
@@ -18,9 +18,9 @@ export function pressEnterHandler(func) {
   };
 }
 
-export function pressEnterAndEscHandler(func) {
+export function pressEnterAndEscHandler(elem, func) {
   prevPressKeyFunc = document.onkeydown;
-  document.onkeydown = function pressKeyFunc(evt) {
+  elem.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     if (event.keyCode === ENTER_KEYCODE) {
       func();
@@ -34,12 +34,12 @@ export function pressEnterAndEscHandler(func) {
   };
 }
 
-export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className, addEscHandler) {
+export function pressEnterAndEscAndArrowsHandler(elem, funcOnEnter, className, addEscHandler) {
   let focusIndex = 0;
   let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
   focusedElement.focus();
   prevPressKeyFunc = document.onkeydown;
-  document.onkeydown = function pressKeyFunc(evt) {
+  elem.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     switch (event.keyCode) {
       case LEFT_KEYCODE:
