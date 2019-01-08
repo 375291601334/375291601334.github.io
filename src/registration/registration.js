@@ -39,7 +39,7 @@ function saveName() {
     localStorage.setItem('RecordsArr', JSON.stringify(newRecArr));
   } else {
     const recArr = JSON.parse(localStorage.getItem('RecordsArr'));
-    arr.push({ name: `${name}`, killedMonsersAmmount: 0 });
+    recArr.push({ name: `${name}`, killedMonsersAmmount: 0 });
     localStorage.setItem('RecordsArr', JSON.stringify(recArr));
   }
 }

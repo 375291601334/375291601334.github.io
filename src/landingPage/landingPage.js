@@ -70,12 +70,12 @@ function createHeadSection() {
 
 function createScreenshotSection() {
   const screenshots = [
-    { url: '../images/screenshots/1.PNG', text: '1. Регистрация' },
-    { url: '../images/screenshots/2.PNG', text: '2. Начало игры' },
-    { url: '../images/screenshots/3.PNG', text: '3. Выбор воздейстия' },
-    { url: '../images/screenshots/4.PNG', text: '4. Выбор задания' },
-    { url: '../images/screenshots/5.PNG', text: '5. Решениезадания' },
-    { url: '../images/screenshots/6.PNG', text: '6. Таблица рекордов' },
+    { url: 'images/screenshots/1.PNG', text: '1. Регистрация' },
+    { url: 'images/screenshots/2.PNG', text: '2. Начало игры' },
+    { url: 'images/screenshots/3.PNG', text: '3. Выбор воздейстия' },
+    { url: 'images/screenshots/4.PNG', text: '4. Выбор задания' },
+    { url: 'images/screenshots/5.PNG', text: '5. Решениезадания' },
+    { url: 'images/screenshots/6.PNG', text: '6. Таблица рекордов' },
   ];
   const section = document.createElement('section');
   section.id = 'screenshots';

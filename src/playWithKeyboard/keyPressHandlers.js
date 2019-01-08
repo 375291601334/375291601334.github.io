@@ -2,7 +2,11 @@ import { closeModalWindow } from '../modalWindow/modalWindow';
 
 const ENTER_KEYCODE = 13;
 const ESC_KEYCODE = 27;
-const prevPressKeyFunc;
+const RIGHT_KEYCODE = 39;
+const UP_KEYCODE = 38;
+const LEFT_KEYCODE = 37;
+const DOWN_KEYCODE = 40;
+let prevPressKeyFunc;
 
 export function pressEnterHandler(func) {
   document.onkeydown = function pressKeyFunc(evt) {
@@ -33,7 +37,6 @@ export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
   let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
   focusedElement.focus();
   prevPressKeyFunc = document.onkeydown;
-  
   document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     switch (event.keyCode) {
@@ -63,5 +66,5 @@ export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
       default:
         break;
     }
-  }
+  };
 }

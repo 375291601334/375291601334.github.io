@@ -1,8 +1,8 @@
-import { createModalWindow, closeModalWindow, clearElement } from '../modalWindow/modalWindow';
+import { createModalWindow, clearElement } from '../modalWindow/modalWindow';
 import mathExample from '../tasks/math';
 import englishTranslate from '../tasks/englishTranslate/englishTranslate';
 import makeWord from '../tasks/makeWord';
-import {  } from '../playWithKeyboard/keyPressHandlers';
+import { pressEnterAndEscAndArrowsHandler } from '../playWithKeyboard/keyPressHandlers';
 
 export const kindOfAnimation = {};
 
@@ -24,16 +24,12 @@ function chooseTaskWithKeyboard(focusIndex) {
   switch (focusIndex) {
     case 0:
       return mathExample;
-      break;
     case 1:
       return englishTranslate;
-      break;
     case 2:
       return makeWord;
-      break;
     default:
       return false;
-      break;
   }
 }
 
@@ -69,5 +65,5 @@ export function showSpellWindow() {
   createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
-  pressEnterAndEscAndArrowsHandler(showTasksWindow,'spell-button');
+  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button');
 }

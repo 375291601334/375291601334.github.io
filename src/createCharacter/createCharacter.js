@@ -11,7 +11,7 @@ let addMonsterBlood = false;
 let addPlayerBlood = false;
 
 const player = {
-  path: '../images/characters/player/',
+  path: './images/characters/player/',
   parts: ['leftLeg', 'rightLeg', 'body', 'gun', 'leftArm', 'rightArm', 'head'],
   coordX: [+50, +0, -5, 80, 60, -15, -37],
   coordY: [240, 240, 150, 173, 160, 163, 0],
@@ -20,7 +20,7 @@ const player = {
 };
 
 const monster = {
-  path: '../images/characters/monsters/',
+  path: './images/characters/monsters/',
   parts: ['leftLeg', 'rightLeg', 'body', 'gun', 'leftArm', 'rightArm', 'head'],
   coordX: [+50, +0, -5, -130, 60, -15, -37],
   coordY: [240, 240, 150, 173, 160, 163, 0],
@@ -52,24 +52,24 @@ function getCanvasContext() {
 }
 
 function loadSounds() {
-  sounds.flying = new Audio('../sounds/flying.mp3');
-  sounds.hitting = new Audio('../sounds/hitting.mp3');
-  sounds.curing = new Audio('../sounds/curing.mp3');
+  sounds.flying = new Audio('./sounds/flying.mp3');
+  sounds.hitting = new Audio('./sounds/hitting.mp3');
+  sounds.curing = new Audio('./sounds/curing.mp3');
 }
 
 function loadImages() {
   // load background
   images.background = new Image();
-  images.background.src = '../images/background.png';
+  images.background.src = './images/background.png';
   // load blood
   images.blood = new Image();
-  images.blood.src = '../images/characters/blood.png';
+  images.blood.src = './images/characters/blood.png';
   images.blood.startY = 840;
   images.blood.monsterStartX = 1250;
   images.blood.playerStartX = 430;
   // load light
   images.light = new Image();
-  images.light.src = '../images/characters/light.png';
+  images.light.src = './images/characters/light.png';
   images.light.startY = 700;
   images.light.startX = 290;
 
@@ -138,6 +138,8 @@ function goToHitDecorator() {
   let direction;
   let x;
   let stepsToHitAmt = 0;
+  const bounderRight = monster.startX + monster.coordX[3];
+  const bounderLeft = player.startX + player.coordX[3];
   return function goToHit() {
     if (playerGoingToHit) {
       x = player.startX + player.coordX[3];
@@ -154,7 +156,7 @@ function goToHitDecorator() {
     }
     if (direction === 1) {
       stepsToHitAmt += delta;
-      if (x > monster.startX + monster.coordX[4]) {
+      if (x > bounderRight) {
         if (playerGoingToHit) {
           delta = 0;
           stepsToHitAmt = 0;
@@ -173,7 +175,7 @@ function goToHitDecorator() {
       }
     } else {
       stepsToHitAmt -= delta;
-      if (x < player.startX + player.coordX[4]) {
+      if (x < bounderLeft) {
         if (monsterGoingToHit) {
           delta = 0;
           stepsToHitAmt = 0;
@@ -200,10 +202,11 @@ function throwGunDecorator() {
   let delta = 0.1;
   let x;
   let flyingGunAmt = 0;
+  const bounderRight = monster.startX + monster.coordX[3];
   return function throwGun() {
     x = player.startX + player.coordX[3];
     flyingGunAmt += delta;
-    if (x > (monster.startX + monster.coordX[4]) && delta > 0) {
+    if (x > bounderRight && delta > 0) {
       delta = 0;
       flyingGunAmt = 0;
       addMonsterBlood = true;
