@@ -2,6 +2,9 @@ import { createModalWindow, clearElement } from '../modalWindow/modalWindow';
 import mathExample from '../tasks/math';
 import englishTranslate from '../tasks/englishTranslate/englishTranslate';
 import makeWord from '../tasks/makeWord';
+import makeSentence from '../tasks/makeSentence';
+import wordByPicture from '../tasks/wordByPicture';
+import audition from '../tasks/audition';
 import { pressEnterAndEscAndArrowsHandler } from '../playWithKeyboard/keyPressHandlers';
 
 export const kindOfAnimation = {};
@@ -51,15 +54,13 @@ function showTasksWindow(event) {
   clearElement(modalWindow);
   modalWindow.classList.add('choose-task-window');
   createTitle(modalWindow, 'Выберите тип задания: ');
-  
-  const container = document.createElement('div');
-  container.classList.add('task-type-container');
-  modalWindow.appendChild(container);
-  
   createSpellButton(modalWindow, 'Математика', mathExample, 'task-type-button');
   createSpellButton(modalWindow, 'Перевод слова', englishTranslate, 'task-type-button');
   createSpellButton(modalWindow, 'Составить слово', makeWord, 'task-type-button');
-  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-container', false);
+  createSpellButton(modalWindow, 'Составить предложение', makeSentence, 'task-type-button');
+  createSpellButton(modalWindow, 'Аудирование', audition, 'task-type-button');
+  createSpellButton(modalWindow, 'Слово по картинке', wordByPicture, 'task-type-button');
+  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-button', false);
 }
 
 export function showSpellWindow() {
@@ -67,13 +68,8 @@ export function showSpellWindow() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   modalWindow.classList.add('spell-window');
   createTitle(modalWindow, 'Выберите тип воздействия: ');
-  
-  const container = document.createElement('div');
-  container.classList.add('spell-button-container');
-  modalWindow.appendChild(container);
-  
-  createSpellButton(container, 'УДАР', showTasksWindow, 'spell-button');
-  createSpellButton(container, 'БРОСОК', showTasksWindow, 'spell-button');
-  createSpellButton(container, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
-  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button-container', true);
+  createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
+  createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
+  createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
+  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button', true);
 }

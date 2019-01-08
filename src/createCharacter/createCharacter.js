@@ -215,6 +215,7 @@ function throwGunDecorator() {
         addMonsterBlood = false;
         sounds.curing.pause();
         playerThrowingGun = false;
+        player.coordX[3] = 80;
       }, 2000);
     }
     return flyingGunAmt;
@@ -292,6 +293,7 @@ function main() {
 }
 
 export default function createCharacters() {
+  monsterGoingToHit = false;
   loadSounds();
   loadImages();
   main();

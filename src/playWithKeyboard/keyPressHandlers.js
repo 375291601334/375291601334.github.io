@@ -9,7 +9,7 @@ const DOWN_KEYCODE = 40;
 let prevPressKeyFunc;
 
 export function pressEnterHandler(func) {
-  elem.onkeydown = function pressKeyFunc(evt) {
+  document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     if (event.keyCode === ENTER_KEYCODE) {
       func();
@@ -20,7 +20,7 @@ export function pressEnterHandler(func) {
 
 export function pressEnterAndEscHandler(func) {
   prevPressKeyFunc = document.onkeydown;
-  elem.onkeydown = function pressKeyFunc(evt) {
+  document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     if (event.keyCode === ENTER_KEYCODE) {
       func();
@@ -36,24 +36,25 @@ export function pressEnterAndEscHandler(func) {
 
 export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className, addEscHandler) {
   let focusIndex = 0;
-  let focusedElement = document.getElementsByClassName(`${className}`)[0].children[focusIndex];
+  const len = document.getElementsByClassName(`${className}`).length;
+  let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
   focusedElement.focus();
   prevPressKeyFunc = document.onkeydown;
-  document.getElementsByClassName(`${className}`)[0].onkeydown = function pressKeyFunc(evt) {
+  document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;
     switch (event.keyCode) {
       case LEFT_KEYCODE:
       case DOWN_KEYCODE:
         focusIndex -= 1;
-        if (focusIndex === -1) focusIndex = 2;
-        focusedElement = document.getElementsByClassName(`${className}`)[0].children[focusIndex];
+        if (focusIndex === -1) focusIndex = len - 1;
+        focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
         focusedElement.focus();
         break;
       case UP_KEYCODE:
       case RIGHT_KEYCODE:
         focusIndex += 1;
-        if (focusIndex === 3) focusIndex = 0;
-        focusedElement = document.getElementsByClassName(`${className}`)[0].children[focusIndex];
+        if (focusIndex === len) focusIndex = 0;
+        focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
         focusedElement.focus();
         break;
       case ENTER_KEYCODE:

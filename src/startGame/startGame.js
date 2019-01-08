@@ -36,6 +36,7 @@ export default function createGameSpace() {
   createHealthBar(healthContainer, recArr[recArr.length - 1].name);
   createHealthBar(healthContainer, createMonsterName());
   createAttackButton(container);
+  document.getElementsByClassName('attack-button')[0].focus();
   pressEnterHandler(showSpellWindow);
   createCanvas(container);
   createCharacters();

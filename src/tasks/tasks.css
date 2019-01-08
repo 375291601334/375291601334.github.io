@@ -77,3 +77,21 @@
   border: 3px solid rgb(0, 0, 0);
   border-radius: 3px;
 }
+
+.words-container {
+  height: 30px;
+  display: inline-block;
+  padding: 5px;
+  margin: 7px;
+  font-size: 2rem;
+  line-height: 2rem;
+  background: rgb(252, 242, 215);
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 3px;
+}
+
+.picture-for-word {
+  height: 150px;
+  width: 150px;
+  margin: 0 auto;
+}
