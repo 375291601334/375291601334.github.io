@@ -9,6 +9,14 @@ export function closeModalWindow() {
   document.getElementsByClassName('modal-window-cover-div')[0].remove();
 }
 
+export function clearDOMTree() {
+  let element = document.body.firstChild;
+  while (element) {
+    document.body.removeChild(element);
+    element = document.body.firstChild;
+  }
+}
+
 function createCloseButton(parent) {
   const closeButton = document.createElement('span');
   closeButton.classList.add('close');
