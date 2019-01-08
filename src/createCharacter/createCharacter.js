@@ -1,3 +1,15 @@
+const NUMBER_OF_MONSTER_SETS = 9;
+const SPEED_RATE = 0.5;
+const FPS = 1000;
+
+let playerGoingToHit = false;
+let monsterGoingToHit = false;
+let playerThrowingGun = false;
+let addPlayerHealth = false;
+
+let addMonsterBlood = false;
+let addPlayerBlood = false;
+
 const player = {
   path: '../images/characters/player/',
   parts: ['leftLeg', 'rightLeg', 'body', 'gun', 'leftArm', 'rightArm', 'head'],
@@ -25,14 +37,13 @@ images.light = {};
 
 const sounds = {};
 
+requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+  || window.msRequestAnimationFrame || window.mozRequestAnimationFrame;
+
 function generateMonsterPart(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-  || window.msRequestAnimationFrame || window.mozRequestAnimationFrame;
-
-// Create the canvas
 function getCanvasContext() {
   const canvas = document.getElementsByTagName('canvas')[0];
   const context = canvas.getContext('2d');
@@ -71,7 +82,7 @@ function loadImages() {
   // load monster parts
   for (let i = 0; i < monster.parts.length; i += 1) {
     images.monster[monster.parts[i]] = new Image();
-    images.monster[monster.parts[i]].src = `${monster.path + generateMonsterPart(1, 9)}/${player.parts[i]}.png`;
+    images.monster[monster.parts[i]].src = `${monster.path + generateMonsterPart(1, NUMBER_OF_MONSTER_SETS)}/${monster.parts[i]}.png`;
   }
 }
 
@@ -80,7 +91,6 @@ function makeStepsDecorator() {
   let direction = 1;
   let movementsAmt = 0;
   const maxMoveLength = 1;
-
   return function makeSteps() {
     if (direction === 1) {
       movementsAmt -= delta;
@@ -98,10 +108,6 @@ function makeStepsDecorator() {
 }
 const makeSteps = makeStepsDecorator();
 
-let playerGoingToHit = false;
-let monsterGoingToHit = false;
-let playerThrowingGun = false;
-let addPlayerHealth = false;
 export function makeAnimationTrue(animationType) {
   switch (animationType) {
     case 'playerGoingToHit':
@@ -127,14 +133,11 @@ export function makeAnimationTrue(animationType) {
   }
 }
 
-let addMonsterBlood = false;
-let addPlayerBlood = false;
 function goToHitDecorator() {
   let delta = 0.1;
   let direction;
   let x;
   let stepsToHitAmt = 0;
-
   return function goToHit() {
     if (playerGoingToHit) {
       x = player.startX + player.coordX[3];
@@ -151,7 +154,7 @@ function goToHitDecorator() {
     }
     if (direction === 1) {
       stepsToHitAmt += delta;
-      if (x > 1270) {
+      if (x > monster.startX + monster.coordX[4]) {
         if (playerGoingToHit) {
           delta = 0;
           stepsToHitAmt = 0;
@@ -170,7 +173,7 @@ function goToHitDecorator() {
       }
     } else {
       stepsToHitAmt -= delta;
-      if (x < 480) {
+      if (x < player.startX + player.coordX[4]) {
         if (monsterGoingToHit) {
           delta = 0;
           stepsToHitAmt = 0;
@@ -197,11 +200,10 @@ function throwGunDecorator() {
   let delta = 0.1;
   let x;
   let flyingGunAmt = 0;
-
   return function throwGun() {
     x = player.startX + player.coordX[3];
     flyingGunAmt += delta;
-    if (x > 1280 && delta > 0) {
+    if (x > (monster.startX + monster.coordX[4]) && delta > 0) {
       delta = 0;
       flyingGunAmt = 0;
       addMonsterBlood = true;
@@ -210,7 +212,6 @@ function throwGunDecorator() {
         addMonsterBlood = false;
         sounds.curing.pause();
         playerThrowingGun = false;
-        player.coordX[3] = 80;
       }, 2000);
     }
     return flyingGunAmt;
@@ -222,36 +223,33 @@ function update() {
   const permanentAnimation = makeSteps();
   let stepsToHitAmt = 0;
   let flyingGunAmt = 0;
-
   if (playerGoingToHit || monsterGoingToHit) stepsToHitAmt = goToHit();
   if (playerThrowingGun) flyingGunAmt = throwGun();
 
   for (let i = 0; i < player.parts.length; i += 1) {
     const partName = player.parts[i];
-
     if (partName === 'rightLeg') {
       player.coordY[i] -= permanentAnimation;
     } else if (partName === 'leftLeg') {
       player.coordY[i] += permanentAnimation;
     } else if (partName === 'leftArm' || partName === 'rightArm') {
-      player.coordY[i] -= permanentAnimation * 0.5;
+      player.coordY[i] -= permanentAnimation * SPEED_RATE;
     } else if (partName === 'gun') {
       if (playerThrowingGun) {
         player.coordX[i] += flyingGunAmt;
-      } else { player.coordY[i] -= permanentAnimation * 0.5; }
+      } else { player.coordY[i] -= permanentAnimation * SPEED_RATE; }
     }
     if (playerGoingToHit) player.coordX[i] += stepsToHitAmt;
   }
 
   for (let i = 0; i < monster.parts.length; i += 1) {
     const partName = monster.parts[i];
-
     if (partName === 'rightLeg') {
       monster.coordY[i] -= permanentAnimation;
     } else if (partName === 'leftLeg') {
       monster.coordY[i] += permanentAnimation;
     } else if (partName === 'leftArm' || partName === 'rightArm' || partName === 'gun') {
-      monster.coordY[i] -= permanentAnimation * 0.5;
+      monster.coordY[i] -= permanentAnimation * SPEED_RATE;
     }
     if (monsterGoingToHit) monster.coordX[i] += stepsToHitAmt;
   }
@@ -284,7 +282,7 @@ let then = Date.now();
 function main() {
   const now = Date.now();
   const delta = now - then;
-  update(delta / 1000);
+  update(delta / FPS);
   render();
   then = now;
   requestAnimationFrame(main);
