@@ -20,6 +20,23 @@ function createSpellButton(parent, text, func, className) {
   button.addEventListener('click', func);
 }
 
+function chooseTaskWithKeyboard(focusIndex) {
+  switch (focusIndex) {
+    case 0:
+      return mathExample;
+      break;
+    case 1:
+      return englishTranslate;
+      break;
+    case 2:
+      return makeWord;
+      break;
+    default:
+      return false;
+      break;
+  }
+}
+
 function showTasksWindow(event) {
   switch (event.target) {
     case document.getElementsByClassName('spell-button')[0]:
@@ -41,6 +58,7 @@ function showTasksWindow(event) {
   createSpellButton(modalWindow, 'Математика', mathExample, 'task-type-button');
   createSpellButton(modalWindow, 'Перевод слова', englishTranslate, 'task-type-button');
   createSpellButton(modalWindow, 'Составить слово', makeWord, 'task-type-button');
+  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-button');
 }
 
 export function showSpellWindow() {
@@ -51,4 +69,5 @@ export function showSpellWindow() {
   createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
+  pressEnterAndEscAndArrowsHandler(showTasksWindow,'spell-button');
 }
