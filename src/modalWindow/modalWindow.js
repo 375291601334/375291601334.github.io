@@ -9,11 +9,11 @@ export function closeModalWindow() {
   document.getElementsByClassName('modal-window-cover-div')[0].remove();
 }
 
-export function clearDOMTree() {
-  let element = document.body.firstChild;
+export function clearElement(elem) {
+  let element = elem.firstChild;
   while (element) {
-    document.body.removeChild(element);
-    element = document.body.firstChild;
+    elem.removeChild(element);
+    element = elem.firstChild;
   }
 }
 
