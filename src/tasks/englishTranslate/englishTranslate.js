@@ -9,12 +9,12 @@ let index;
 let word;
 
 function checkAnswer() {
+  pressEnterHandler(showSpellWindow);
   const userAns = document.getElementsByClassName('task-input')[0].value;
   if (!isBlank(userAns)) {
     const rightAns = wordsArr[index][word];
     makeSpell(rightAns.indexOf(userAns) !== -1);
   }
-  pressEnterHandler(showSpellWindow);
 }
 
 export default function mathExample() {
