@@ -1,6 +1,7 @@
 import createLandingPage from '../landingPage/landingPage';
 import  { clearKilledMonsterCounter } from '../charactersHealth/changeHealthState';
 import { clearElement } from '../modalWindow/modalWindow';
+import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
 
 function createTableTitle(parent, text) {
   const title = document.createElement('h2');
@@ -45,6 +46,7 @@ function createButton(parent) {
   button.innerHTML = 'Вернуться к игре';
   parent.appendChild(button);
   button.addEventListener('click', createLandingPage);
+  pressEnterHandler(createLandingPage);
 }
 
 export default function createRecordsTable(recordsInfo) {
