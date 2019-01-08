@@ -27,13 +27,13 @@ function createLettersDivs(parent, lettersArr) {
 }
 
 function checkAnswer() {
+  pressEnterHandler(showSpellWindow);
   const rightAns = word;
   let userAns = '';
   for (let i = 0; i < word.length; i += 1) {
     userAns += document.getElementsByClassName('letters-container')[i].innerText;
   }
   makeSpell(userAns === rightAns);
-  pressEnterHandler(showSpellWindow);
 }
 
 export default function makeWord() {
