@@ -34,7 +34,7 @@ export function pressEnterAndEscHandler(func) {
   };
 }
 
-export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
+export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className, addEscHandler) {
   let focusIndex = 0;
   let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
   focusedElement.focus();
@@ -60,9 +60,11 @@ export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
         funcOnEnter();
         break;
       case ESC_KEYCODE:
-        document.onkeydown = prevPressKeyFunc;
-        if (document.getElementsByClassName('modal-window')[0] !== 'undefined') {
-          closeModalWindow();
+        if (addEscHandler) {
+          document.onkeydown = prevPressKeyFunc;
+          if (document.getElementsByClassName('modal-window')[0] !== 'undefined') {
+            closeModalWindow();
+          }
         }
         break;
       default:
