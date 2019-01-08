@@ -1,19 +1,19 @@
 import $ from 'jquery';
 import '../../node_modules/jquery-ui/ui/widgets/sortable';
-import { clearModalWindow, createTaskText, createTaskButton, randNum, makeSpell } from './tasksModalWindowElements';
+import { createTaskText, createTaskButton, randNum, makeSpell } from './tasksModalWindowElements';
 import { showSpellWindow } from '../createSpellWindow/createSpellWindow';
+import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
+import { clearElement } from '../modalWindow/modalWindow';
 
 window.$ = $;
 const str = 'Соберите слово из букв:';
-const wordsArr = ['yellow', 'blue', 'white', 'black', 'pink', 'red'];
-
+const wordsArr = ['yellow', 'blue', 'white', 'black', 'pink', 'red','brown', 'green', 'orange', 'purple', 'grey'];
 let index;
 let word;
 
-function create(parent, lettersArr) {
+function createLettersDivs(parent, lettersArr) {
   const ul = document.createElement('ul');
   ul.id = 'sortable';
-
   const len = lettersArr.length;
   for (let i = 0; i < len; i += 1) {
     const li = document.createElement('li');
@@ -21,7 +21,6 @@ function create(parent, lettersArr) {
     li.innerText = lettersArr.splice(randNum(0, lettersArr.length - 1), 1);
     ul.appendChild(li);
   }
-
   parent.appendChild(ul);
   $(() => $('#sortable').sortable());
   document.getElementsByClassName('letters-container')[0].focus();
@@ -34,13 +33,7 @@ function checkAnswer() {
     userAns += document.getElementsByClassName('letters-container')[i].innerText;
   }
   makeSpell(userAns === rightAns);
-
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      showSpellWindow();
-    }
-  };
+  pressEnterHandler(showSpellWindow);
 }
 
 export default function makeWord() {
@@ -48,16 +41,9 @@ export default function makeWord() {
   index = randNum(0, wordsArr.length - 1);
   word = wordsArr[index];
   const letters = word.split('');
-
-  clearModalWindow(modalWindow);
+  clearElement(modalWindow);
   createTaskText(modalWindow, str);
-  create(modalWindow, letters);
+  createLettersDivs(modalWindow, letters);
   createTaskButton(modalWindow, checkAnswer);
-
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      checkAnswer();
-    }
-  };
+  pressEnterHandler(checkAnswer);
 }
