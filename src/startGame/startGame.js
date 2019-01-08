@@ -2,12 +2,16 @@ import createCharacters from '../createCharacter/createCharacter';
 import createMonsterName from '../createCharacter/createMonsterName';
 import { showSpellWindow } from '../createSpellWindow/createSpellWindow';
 import createHealthBar from '../charactersHealth/createHealthBar';
+import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
+
+const BACKGROUND_WIDTH = 1893;
+const BACKGROUND_HEIGHT = 1076;
 
 function createCanvas(parent) {
   const canvas = document.createElement('canvas');
   canvas.id = 'canvas';
-  canvas.width = 1893;
-  canvas.height = 1076;
+  canvas.width = BACKGROUND_WIDTH;
+  canvas.height = BACKGROUND_HEIGHT;
   parent.appendChild(canvas);
 }
 
@@ -32,13 +36,7 @@ export default function createGameSpace() {
   createHealthBar(healthContainer, recArr[recArr.length - 1].name);
   createHealthBar(healthContainer, createMonsterName());
   createAttackButton(container);
+  pressEnterHandler(showSpellWindow);
   createCanvas(container);
   createCharacters();
-
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      showSpellWindow();
-    }
-  };
 }
