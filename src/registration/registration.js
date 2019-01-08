@@ -1,4 +1,4 @@
-import { createModalWindow } from '../modalWindow/modalWindow';
+import { createModalWindow, clearDOMTree } from '../modalWindow/modalWindow';
 import startGame from '../startGame/startGame';
 import { pressEnterAndEscHandler } from '../playWithKeyboard/keyPressHandlers';
 
@@ -45,11 +45,7 @@ function saveName() {
 }
 
 function showGameWindow() {
-  let element = document.body.firstChild;
-  while (element) {
-    document.body.removeChild(element);
-    element = document.body.firstChild;
-  }
+  clearDOMTree();
   startGame();
 }
 
