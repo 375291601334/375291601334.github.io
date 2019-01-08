@@ -1,5 +1,6 @@
-import { createModalWindow, closeModalWindow } from '../modalWindow/modalWindow';
+import { createModalWindow } from '../modalWindow/modalWindow';
 import startGame from '../startGame/startGame';
+import { pressEnterAndEscHandler } from '../playWithKeyboard/keyPressHandlers';
 
 function createTextAboutRegistration(parent) {
   const div = document.createElement('div');
@@ -34,12 +35,12 @@ function saveName() {
   let name = document.getElementById('registration-input').value;
   if (name === '') { name = 'Аноним'; }
   if (localStorage.getItem('RecordsArr') === null) {
-    const newArr = [{ name: `${name}`, killedMonsersAmmount: 0 }];
-    localStorage.setItem('RecordsArr', JSON.stringify(newArr));
+    const newRecArr = [{ name: `${name}`, killedMonsersAmmount: 0 }];
+    localStorage.setItem('RecordsArr', JSON.stringify(newRecArr));
   } else {
-    const arr = JSON.parse(localStorage.getItem('RecordsArr'));
+    const recArr = JSON.parse(localStorage.getItem('RecordsArr'));
     arr.push({ name: `${name}`, killedMonsersAmmount: 0 });
-    localStorage.setItem('RecordsArr', JSON.stringify(arr));
+    localStorage.setItem('RecordsArr', JSON.stringify(recArr));
   }
 }
 
@@ -50,6 +51,11 @@ function showGameWindow() {
     element = document.body.firstChild;
   }
   startGame();
+}
+
+function goToGameWindow() {
+  saveName();
+  showGameWindow();
 }
 
 function createPlayButton(parent) {
@@ -69,18 +75,5 @@ export default function showRegistrationWindow() {
   createLabel(modalWindow);
   createRegistrationInput(modalWindow);
   createPlayButton(modalWindow);
-
-  const prevPressKeyFunc = document.onkeydown;
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      saveName();
-      showGameWindow();
-    } else if (event.keyCode === 27) {
-      document.onkeydown = prevPressKeyFunc;
-      if (document.getElementsByClassName('modal-window')[0] !== 'undefined') {
-        closeModalWindow();
-      }
-    }
-  };
+  pressEnterAndEscHandler(goToGameWindow);
 }
