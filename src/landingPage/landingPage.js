@@ -1,4 +1,5 @@
 import showRegistrationWindow from '../registration/registration';
+import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
 
 function createLogo(parent) {
   const logo = document.createElement('div');
@@ -55,13 +56,6 @@ function createPlayButton(parent) {
   button.addEventListener('click', showRegistrationWindow);
 }
 
-document.onkeydown = function pressKeyFunc(evt) {
-  const event = evt || window.event;
-  if (event.keyCode === 13) {
-    showRegistrationWindow();
-  }
-};
-
 function createHeadSection() {
   const section = document.createElement('section');
   section.classList.add('head-section');
@@ -69,6 +63,7 @@ function createHeadSection() {
   createLogo(section);
   createGameDescription(section);
   createPlayButton(section);
+  pressEnterHandler(showRegistrationWindow);
   document.body.appendChild(section);
 }
 
@@ -122,7 +117,7 @@ function createContactSection() {
     i.classList.add('fas');
     i.classList.add(obj.class);
     const p = document.createElement('p');
-    p.innerText = ` ${obj.text}`;
+    p.innerText = `${obj.text}`;
     p.prepend(i);
     section.appendChild(p);
   });
