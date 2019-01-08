@@ -1,4 +1,4 @@
-import { createModalWindow, closeModalWindow } from '../modalWindow/modalWindow';
+import { createModalWindow, closeModalWindow, clearElement } from '../modalWindow/modalWindow';
 import mathExample from '../tasks/math';
 import englishTranslate from '../tasks/englishTranslate/englishTranslate';
 import makeWord from '../tasks/makeWord';
@@ -15,14 +15,6 @@ function createSpellButton(parent, text, func, className) {
   button.innerHTML = text;
   parent.appendChild(button);
   button.addEventListener('click', func);
-}
-
-function clearModalWindow(modalWindow) {
-  let element = modalWindow.firstChild;
-  while (element) {
-    modalWindow.removeChild(element);
-    element = modalWindow.firstChild;
-  }
 }
 
 export const kindOfAnimation = {};
@@ -43,7 +35,7 @@ function showTasksWindow(event) {
   }
 
   const modalWindow = document.getElementsByClassName('modal-window')[0];
-  clearModalWindow(modalWindow);
+  clearElement(modalWindow);
   modalWindow.classList.add('choose-task-window');
 
   createTitle(modalWindow, 'Выберите тип задания: ');
