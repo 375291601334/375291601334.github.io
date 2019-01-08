@@ -1,6 +1,8 @@
-import { clearModalWindow, createTaskText, createTaskInput, createTaskButton, randNum, makeSpell } from './tasksModalWindowElements';
+import { createTaskText, createTaskInput, createTaskButton, randNum, makeSpell } from './tasksModalWindowElements';
 import isBlank from './validation';
 import { showSpellWindow } from '../createSpellWindow/createSpellWindow';
+import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
+import { clearElement } from '../modalWindow/modalWindow';
 
 const signs = ['+', '-', '*'];
 const minNum = 0;
@@ -14,13 +16,7 @@ function checkAnswer() {
     const rightAns = `${eval(example)}`;
     makeSpell(userAns === rightAns);
   }
-
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      showSpellWindow();
-    }
-  };
+  pressEnterHandler(showSpellWindow);
 }
 
 export default function mathExample() {
@@ -28,18 +24,12 @@ export default function mathExample() {
   example = `${randNum(minNum, maxNum)}${signs[randNum(0, signs.length - 1)]}${randNum(minNum, maxNum)}`;
   str = `Решите пример: ${example}`;
 
-  clearModalWindow(modalWindow);
+  clearElement(modalWindow);
   createTaskText(modalWindow, str);
   createTaskInput(modalWindow);
   const input = document.getElementsByClassName('task-input')[0];
   input.setAttribute('type', 'number');
   input.focus();
   createTaskButton(modalWindow, checkAnswer);
-
-  document.onkeydown = function pressKeyFunc(evt) {
-    const event = evt || window.event;
-    if (event.keyCode === 13) {
-      checkAnswer();
-    }
-  };
+  pressEnterHandler(checkAnswer);
 }
