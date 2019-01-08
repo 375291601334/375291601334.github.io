@@ -54,7 +54,7 @@ function showTasksWindow(event) {
   createSpellButton(modalWindow, 'Математика', mathExample, 'task-type-button');
   createSpellButton(modalWindow, 'Перевод слова', englishTranslate, 'task-type-button');
   createSpellButton(modalWindow, 'Составить слово', makeWord, 'task-type-button');
-  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-button');
+  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-button', false);
 }
 
 export function showSpellWindow() {
@@ -65,5 +65,5 @@ export function showSpellWindow() {
   createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
-  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button');
+  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button', true);
 }
