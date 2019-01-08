@@ -11,12 +11,12 @@ let example;
 let str;
 
 function checkAnswer() {
+  pressEnterHandler(showSpellWindow);
   const userAns = document.getElementsByClassName('task-input')[0].value;
   if (!isBlank(userAns)) {
     const rightAns = `${eval(example)}`;
     makeSpell(userAns === rightAns);
   }
-  pressEnterHandler(showSpellWindow);
 }
 
 export default function mathExample() {
