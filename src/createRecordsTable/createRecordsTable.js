@@ -1,6 +1,6 @@
 import createLandingPage from '../landingPage/landingPage';
 import  { clearKilledMonsterCounter } from '../charactersHealth/changeHealthState';
-import { clearDOMTree } from '../modalWindow/modalWindow';
+import { clearElement } from '../modalWindow/modalWindow';
 
 function createTableTitle(parent, text) {
   const title = document.createElement('h2');
@@ -44,12 +44,11 @@ function createButton(parent) {
   button.classList.add('play-button');
   button.innerHTML = 'Вернуться к игре';
   parent.appendChild(button);
-  button.addEventListener('click', clearDOMTree);
   button.addEventListener('click', createLandingPage);
 }
 
 export default function createRecordsTable(recordsInfo) {
-  clearDOMTree();
+  clearElement(document.body);
   const container = document.createElement('div');
   container.classList.add('records-container');
   document.body.appendChild(container);
