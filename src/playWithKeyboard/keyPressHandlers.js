@@ -28,7 +28,7 @@ export function pressEnterAndEscHandler(func) {
   };
 }
 
-export function (funcOnEnter, className) {
+export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
   let focusIndex = 0;
   let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
   focusedElement.focus();
