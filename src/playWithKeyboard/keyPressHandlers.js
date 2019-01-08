@@ -14,6 +14,7 @@ export function pressEnterHandler(func) {
     if (event.keyCode === ENTER_KEYCODE) {
       func();
     }
+    event.stopPropagation();
   };
 }
 
@@ -29,6 +30,7 @@ export function pressEnterAndEscHandler(func) {
         closeModalWindow();
       }
     }
+    event.stopPropagation();
   };
 }
 
@@ -66,5 +68,6 @@ export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className) {
       default:
         break;
     }
+    event.stopPropagation();
   };
 }
