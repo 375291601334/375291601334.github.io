@@ -1,34 +1,39 @@
 import { createTaskText, createTaskInput, createTaskButton, randNum, makeSpell } from './tasksModalWindowElements';
 import isBlank from './validation';
+import wordsArr from './englishTranslate/dictionary';
 import { showSpellWindow } from '../createSpellWindow/createSpellWindow';
 import { pressEnterHandler } from '../playWithKeyboard/keyPressHandlers';
 import { clearElement } from '../modalWindow/modalWindow';
 
-const signs = ['+', '-', '*'];
-const minNum = 0;
-const maxNum = 300;
-let example;
-let str;
+let index;
+let word;
 
 function checkAnswer() {
   pressEnterHandler(showSpellWindow);
   const userAns = document.getElementsByClassName('task-input')[0].value;
   if (!isBlank(userAns)) {
-    const rightAns = `${eval(example)}`;
-    makeSpell(userAns === rightAns);
+    const rightAns = word;
+    makeSpell(rightAns === userAns);
   }
 }
 
-export default function mathExample() {
+function tellingWord(text) {
+  const synth = window.speechSynthesis;
+  const utterThis = new SpeechSynthesisUtterance(text);
+  synth.speak(utterThis);
+}
+
+export default function audition() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
-  example = `${randNum(minNum, maxNum)}${signs[randNum(0, signs.length - 1)]}${randNum(minNum, maxNum)}`;
-  str = `Решите пример: ${example}`;
+  index = randNum(0, wordsArr.length - 1);
+  word = Object.keys(wordsArr[index])[0];
+  const str = 'Запишите услышанное слово:';
   clearElement(modalWindow);
   createTaskText(modalWindow, str);
   createTaskInput(modalWindow);
   const input = document.getElementsByClassName('task-input')[0];
-  input.setAttribute('type', 'number');
   input.focus();
   createTaskButton(modalWindow, checkAnswer);
   pressEnterHandler(checkAnswer);
+  tellingWord(word);
 }

@@ -14,7 +14,7 @@ const sentencesArr = ['I am a good worker',
 let index;
 let sentence;
 
-function createLettersDivs(parent, wordsArr) {
+function createWordsDivs(parent, wordsArr) {
   const ul = document.createElement('ul');
   ul.id = 'sortable';
   const len = wordsArr.length;
@@ -41,14 +41,14 @@ function checkAnswer() {
   makeSpell(userAns === rightAns);
 }
 
-export default function makeWord() {
+export default function makeSentence() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   index = randNum(0, sentencesArr.length - 1);
   sentence = sentencesArr[index];
   const words = sentence.split(' ');
   clearElement(modalWindow);
   createTaskText(modalWindow, str);
-  createLettersDivs(modalWindow, words);
+  createWordsDivs(modalWindow, words);
   createTaskButton(modalWindow, checkAnswer);
   pressEnterHandler(checkAnswer);
 }

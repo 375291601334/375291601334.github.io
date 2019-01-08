@@ -17,7 +17,7 @@ function checkAnswer() {
   }
 }
 
-export default function mathExample() {
+export default function englishTranslate() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   index = randNum(0, wordsArr.length - 1);
   word = Object.keys(wordsArr[index])[0];
