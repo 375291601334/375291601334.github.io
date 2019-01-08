@@ -51,10 +51,15 @@ function showTasksWindow(event) {
   clearElement(modalWindow);
   modalWindow.classList.add('choose-task-window');
   createTitle(modalWindow, 'Выберите тип задания: ');
+  
+  const container = document.createElement('div');
+  container.classList.add('task-type-container');
+  modalWindow.appendChild(container);
+  
   createSpellButton(modalWindow, 'Математика', mathExample, 'task-type-button');
   createSpellButton(modalWindow, 'Перевод слова', englishTranslate, 'task-type-button');
   createSpellButton(modalWindow, 'Составить слово', makeWord, 'task-type-button');
-  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-button', false);
+  pressEnterAndEscAndArrowsHandler(chooseTaskWithKeyboard, 'task-type-container', false);
 }
 
 export function showSpellWindow() {
@@ -62,8 +67,13 @@ export function showSpellWindow() {
   const modalWindow = document.getElementsByClassName('modal-window')[0];
   modalWindow.classList.add('spell-window');
   createTitle(modalWindow, 'Выберите тип воздействия: ');
-  createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
-  createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
-  createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
-  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button', true);
+  
+  const container = document.createElement('div');
+  container.classList.add('spell-button-container');
+  modalWindow.appendChild(container);
+  
+  createSpellButton(container, 'УДАР', showTasksWindow, 'spell-button');
+  createSpellButton(container, 'БРОСОК', showTasksWindow, 'spell-button');
+  createSpellButton(container, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
+  pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button-container', true);
 }
