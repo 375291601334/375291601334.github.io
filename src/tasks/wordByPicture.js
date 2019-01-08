@@ -8,7 +8,7 @@ let index;
 const wordsArr = ['hat', 'flower', 'qween', 'egg', 'tree'];
 
 function checkAnswer() {
-  const userAns = document.getElementsByClassName('task-input')[0].value;
+  const userAns = document.getElementsByClassName('task-input')[0].value.toLowerCase();
   pressEnterHandler(showSpellWindow);
   if (!isBlank(userAns)) {
     const rightAns = wordsArr[index];

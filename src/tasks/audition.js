@@ -10,7 +10,7 @@ let word;
 
 function checkAnswer() {
   pressEnterHandler(showSpellWindow);
-  const userAns = document.getElementsByClassName('task-input')[0].value;
+  const userAns = document.getElementsByClassName('task-input')[0].value.toLowerCase();
   if (!isBlank(userAns)) {
     const rightAns = word;
     makeSpell(rightAns === userAns);
