@@ -1,5 +1,6 @@
 import createLandingPage from '../landingPage/landingPage';
 import  { clearKilledMonsterCounter } from '../charactersHealth/changeHealthState';
+import { clearDOMTree } from '../modalWindow/modalWindow';
 
 function createTableTitle(parent, text) {
   const title = document.createElement('h2');
@@ -38,14 +39,6 @@ function createTable(parent, info) {
   parent.appendChild(table);
 }
 
-function clearDOMTree() {
-  let element = document.body.firstChild;
-  while (element) {
-    document.body.removeChild(element);
-    element = document.body.firstChild;
-  }
-}
-
 function createButton(parent) {
   const button = document.createElement('button');
   button.classList.add('play-button');
@@ -56,6 +49,7 @@ function createButton(parent) {
 }
 
 export default function createRecordsTable(recordsInfo) {
+  clearDOMTree();
   const container = document.createElement('div');
   container.classList.add('records-container');
   document.body.appendChild(container);
