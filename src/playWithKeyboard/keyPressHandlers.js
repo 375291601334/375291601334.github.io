@@ -38,7 +38,6 @@ export function pressEnterAndEscAndArrowsHandler(funcOnEnter, className, addEscH
   let focusIndex = 0;
   const len = document.getElementsByClassName(`${className}`).length;
   let focusedElement = document.getElementsByClassName(`${className}`)[focusIndex];
-  focusedElement.focus();
   prevPressKeyFunc = document.onkeydown;
   document.onkeydown = function pressKeyFunc(evt) {
     const event = evt || window.event;

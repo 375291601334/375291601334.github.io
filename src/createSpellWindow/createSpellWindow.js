@@ -25,27 +25,35 @@ function createSpellButton(parent, text, func, className) {
 
 function chooseTaskWithKeyboard() {
   if (document.getElementsByClassName('task-type-button')[0] === document.activeElement) {
-    return mathExample;
+    mathExample();
+    return;
   }
   if (document.getElementsByClassName('task-type-button')[1] === document.activeElement) {
-    return englishTranslate;
+    englishTranslate();
+    return;
   }
   if (document.getElementsByClassName('task-type-button')[2] === document.activeElement) {
-    return makeWord;
+    makeWord();
+    return;
   }
   if (document.getElementsByClassName('task-type-button')[3] === document.activeElement) {
-    return makeSentence;
+    makeSentence();
+    return;
   }
   if (document.getElementsByClassName('task-type-button')[4] === document.activeElement) {
-    return audition;
+    audition();
+    return;
   }
   if (document.getElementsByClassName('task-type-button')[5] === document.activeElement) {
-    return wordByPicture;
+    wordByPicture();
+    return;
   }
-  return false;
+  // default value
+  mathExample();
 }
 
-function showTasksWindow(event) {
+function showTasksWindow(evt) {
+  const event = evt || window.event;
   switch (event.target) {
     case document.getElementsByClassName('spell-button')[0]:
       kindOfAnimation.animation = 'playerGoingToHit';
@@ -57,6 +65,7 @@ function showTasksWindow(event) {
       kindOfAnimation.animation = 'addPlayerHealth';
       break;
     default:
+      kindOfAnimation.animation = 'playerGoingToHit';
       break;
   }
   const modalWindow = document.getElementsByClassName('modal-window')[0];
@@ -78,6 +87,7 @@ export function showSpellWindow() {
   modalWindow.classList.add('spell-window');
   createTitle(modalWindow, 'Выберите тип воздействия: ');
   createSpellButton(modalWindow, 'УДАР', showTasksWindow, 'spell-button');
+  document.getElementsByClassName('spell-button')[0].autofocus = true;
   createSpellButton(modalWindow, 'БРОСОК', showTasksWindow, 'spell-button');
   createSpellButton(modalWindow, 'ЛЕЧЕНИЕ', showTasksWindow, 'spell-button');
   pressEnterAndEscAndArrowsHandler(showTasksWindow, 'spell-button', true);

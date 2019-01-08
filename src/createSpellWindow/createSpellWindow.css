@@ -68,3 +68,8 @@
 .task-type-button:focus {
     border: 5px solid rgb(141, 5, 5);
 }
+
+.task-type-button:first {
+    border: 5px solid rgb(141, 5, 5);
+}
+
